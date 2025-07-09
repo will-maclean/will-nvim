@@ -12,6 +12,8 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+vim.opt.termguicolors = true
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -639,6 +641,10 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+      require("lspconfig").dartls.setup({
+        cmd = {"dart", "language-server", "--protocol=lsp" },
+      })
+
 			require("mason-lspconfig").setup({
 				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 				automatic_installation = false,
@@ -689,7 +695,7 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
+				python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -872,6 +878,7 @@ require("lazy").setup({
 			ensure_installed = {
 				"bash",
 				"c",
+        "dart",
 				"diff",
 				"html",
 				"lua",
