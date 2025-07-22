@@ -194,7 +194,16 @@ require("lazy").setup({
 			},
 		},
 	},
-
+	{
+		"nvim-flutter/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+			"mfussenegger/nvim-dap",
+		},
+		config = true,
+	},
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
 	-- This is often very useful to both group configuration, as well as handle
@@ -641,9 +650,9 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-      require("lspconfig").dartls.setup({
-        cmd = {"dart", "language-server", "--protocol=lsp" },
-      })
+			require("lspconfig").dartls.setup({
+				cmd = { "dart", "language-server", "--protocol=lsp" },
+			})
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -878,7 +887,7 @@ require("lazy").setup({
 			ensure_installed = {
 				"bash",
 				"c",
-        "dart",
+				"dart",
 				"diff",
 				"html",
 				"lua",
@@ -954,6 +963,14 @@ require("lazy").setup({
 			lazy = "💤 ",
 		},
 	},
+}, {
+	"nvim-flutter/flutter-tools.nvim",
+	lazy = false,
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"stevearc/dressing.nvim", -- optional for vim.ui.select
+	},
+	config = true,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
