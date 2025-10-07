@@ -1,8 +1,8 @@
 return {
-  "neovim/nvim-lspconfig",
-  opts = function()
-require("lspconfig").dartls.setup({
-cmd = { "dart", "language-server", "--protocol=lsp" },
-})
-  end,
+	"neovim/nvim-lspconfig",
+	opts = function()
+		vim.lsp.config("dartls", {
+			cmd = { "dart", "language-server", "--protocol=lsp" },
+		})
+	end,
 }

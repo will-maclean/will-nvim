@@ -98,6 +98,11 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- Flutter shortcuts
+vim.keymap.set("n", "<leader>fr", ":FlutterRun<CR>")
+vim.keymap.set("n", "<leader>flt", ":FlutterLogToggle<CR>")
+vim.keymap.set("n", "<leader>fq", ":FlutterQuit<CR>")
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -604,7 +609,7 @@ require("lazy").setup({
 			local servers = {
 				clangd = {},
 				-- gopls = {},
-				pyright = {},
+				-- pyright = {},
 				rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -650,9 +655,9 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			require("lspconfig").dartls.setup({
-				cmd = { "dart", "language-server", "--protocol=lsp" },
-			})
+			-- require("lspconfig").dartls.setup({
+			-- 	cmd = { "dart", "language-server", "--protocol=lsp" },
+			-- })
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -664,7 +669,8 @@ require("lazy").setup({
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for ts_ls)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
+						-- require("lspconfig")[server_name].setup(server)
+						vim.lsp.config(server)
 					end,
 				},
 			})
@@ -691,7 +697,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = false, cpp = false }
 				if disable_filetypes[vim.bo[bufnr].filetype] then
 					return nil
 				else
@@ -705,7 +711,6 @@ require("lazy").setup({
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
-				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
